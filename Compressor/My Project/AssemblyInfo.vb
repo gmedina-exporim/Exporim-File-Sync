@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SharpZipLib wrapper for Create Synchronicity")> 
+<Assembly: AssemblyTitle("SharpZipLib wrapper for Exporim File-Sync")> 
 <Assembly: AssemblyDescription("Provides a gzip-compression interface.")> 
-<Assembly: AssemblyCompany("Create Software")> 
+<Assembly: AssemblyCompany("Exporim Software")> 
 <Assembly: AssemblyProduct("GZipCompressor")> 
-<Assembly: AssemblyCopyright("Create Software")> 
+<Assembly: AssemblyCopyright("Exporim Software")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)>
