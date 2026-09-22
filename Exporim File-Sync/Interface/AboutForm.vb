@@ -48,7 +48,7 @@ Public Class AboutForm
     End Sub
 
     Private Sub ContactLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles ContactLink.LinkClicked
-        Interaction.StartProcess("mailto:createsoftware@users.sourceforge.net")
+        Interaction.StartProcess("https://github.com/gmedina-exporim/Exporim-File-Sync/issues")
     End Sub
 
     Private Sub LinkToLicense_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkToLicense.LinkClicked
@@ -56,7 +56,7 @@ Public Class AboutForm
     End Sub
 
     Private Sub BugReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles BugReport.LinkClicked
-        Interaction.StartProcess("http://sourceforge.net/tracker/?group_id=264348&atid=1130882")
+        Interaction.StartProcess("https://github.com/gmedina-exporim/Exporim-File-Sync/issues")
     End Sub
 
     Private Sub AboutForm_FormClosed(ByVal sender As System.Object, ByVal e As System.Windows.Forms.FormClosedEventArgs) Handles MyBase.FormClosed

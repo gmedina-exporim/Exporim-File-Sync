@@ -28,7 +28,7 @@ Friend Module Updates
             'Some form couldn't close properly because of thread accesses
             Interaction.ShowDebug(Ex.ToString)
         Catch Ex As Exception
-            Interaction.ShowMsg(Translation.Translate("\UPDATE_ERROR") & Environment.NewLine & Ex.Message, Translation.Translate("\UPDATE_ERROR_TITLE"), , MessageBoxIcon.Error)
+            If Not RoutineCheck Then Interaction.ShowMsg(Translation.Translate("\UPDATE_ERROR") & Environment.NewLine & Ex.Message, Translation.Translate("\UPDATE_ERROR_TITLE"), , MessageBoxIcon.Error)
             Interaction.ShowDebug(Ex.Message & Environment.NewLine & Ex.StackTrace)
         End Try
     End Sub
