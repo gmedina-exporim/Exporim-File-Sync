@@ -32,6 +32,7 @@ Public Class SynchronizeForm
     Private FullSyncThread As Threading.Thread
     Private ScanThread As Threading.Thread
     Private SyncThread As Threading.Thread
+    Private CancelSource As New Threading.CancellationTokenSource
 
     Private Delegate Sub TaskDoneCall(ByVal Id As StatusData.SyncStep)
     Private Delegate Sub SetIntCall(ByVal Id As StatusData.SyncStep, ByVal Max As Integer)
@@ -448,8 +449,7 @@ Public Class SynchronizeForm
 
     Private Sub EndAll()
         Status.Cancel = Status.Cancel Or (Status.CurrentStep <> StatusData.SyncStep.Done)
-        FullSyncThread.Abort()
-        ScanThread.Abort() : SyncThread.Abort()
+        CancelSource.Cancel()
         TaskDone(StatusData.SyncStep.Scan) : TaskDone(StatusData.SyncStep.SyncLR) : TaskDone(StatusData.SyncStep.SyncRL) 'This call will sleep for 5s after displaying its failure message if the backup failed.
     End Sub
 #End Region
@@ -496,7 +496,7 @@ Public Class SynchronizeForm
         End Select
         Me.Invoke(TaskDoneCallback, StatusData.SyncStep.Scan)
 
-        'NOTE: [to sysadmins] (March 13, 2010) --> Moved to FAQ (https://github.com/gmedina-exporim/Exporim-File-Sync/faq.html)
+        'NOTE: [to sysadmins] (March 13, 2010) --> See project FAQ / issue tracker.
     End Sub
 
     Private Sub Sync()
@@ -521,6 +521,8 @@ Public Class SynchronizeForm
         Dim IncrementCallback As New SetIntCall(AddressOf Increment)
 
         For Each Entry As SyncingItem In ListOfActions
+            If CancelSource.IsCancellationRequested Then Exit Sub
+
             Dim SourcePath As String = Source & Entry.Path
             Dim DestPath As String = Destination & Entry.Path
 
@@ -559,9 +561,6 @@ Public Class SynchronizeForm
                 End Select
                 Status.ActionsDone += 1
                 Log.LogAction(Entry, Side, True)
-
-            Catch StopEx As Threading.ThreadAbortException
-                Exit Sub
 
             Catch ex As Exception
                 Log.HandleError(ex, SourcePath)
@@ -629,6 +628,7 @@ Public Class SynchronizeForm
     ' This procedure searches for changes in the source directory, in regards
     ' to the status of the destination directory.
     Private Sub SearchForChanges(ByVal Folder As String, ByVal Recursive As Boolean, ByVal Context As SyncingAction)
+        If CancelSource.IsCancellationRequested Then Exit Sub
         If Not HasAcceptedDirname(Folder) Then Exit Sub
         Log.LogInfo(String.Format("=> Scanning folder ""{0}"" for new or updated files.", Folder))
 
@@ -655,6 +655,7 @@ Public Class SynchronizeForm
 
         Try
             For Each SourceFile As String In IO.Directory.GetFiles(Src_FilePath)
+                If CancelSource.IsCancellationRequested Then Exit Sub
                 Dim Suffix As String = If(CompressionEnabled(), Handler.GetSetting(Of String)(ProfileSetting.CompressionExt, ""), "")
                 Dim DestinationFile As String = CombinePathes(Dest_FilePath, IO.Path.GetFileName(SourceFile) & Suffix)
 
@@ -689,6 +690,7 @@ Public Class SynchronizeForm
         If Recursive Then
             Try
                 For Each SubFolder As String In IO.Directory.GetDirectories(Src_FilePath)
+                    If CancelSource.IsCancellationRequested Then Exit Sub
                     SearchForChanges(SubFolder.Substring(Context.SourcePath.Length), True, Context)
                 Next
             Catch Ex As Exception
@@ -717,6 +719,7 @@ Public Class SynchronizeForm
     End Sub
 
     Private Sub SearchForCrap(ByVal Folder As String, ByVal Recursive As Boolean, ByVal Context As SyncingAction)
+        If CancelSource.IsCancellationRequested Then Exit Sub
         If Not HasAcceptedDirname(Folder) Then Exit Sub
 
         'Here, Source is set to be the right folder, and dest to be the left folder
@@ -730,6 +733,7 @@ Public Class SynchronizeForm
         Log.LogInfo(String.Format("=> Scanning folder ""{0}"" for files to delete.", Folder))
         Try
             For Each File As String In IO.Directory.GetFiles(Src_FilePath)
+                If CancelSource.IsCancellationRequested Then Exit Sub
                 Dim RelativeFName As String = File.Substring(Context.SourcePath.Length)
                 If Not IsValidFile(RelativeFName) Then
                     AddToSyncingList(Context.Source, New SyncingItem(RelativeFName, TypeOfItem.File, Context.Action, False))
@@ -749,6 +753,7 @@ Public Class SynchronizeForm
         If Recursive Then
             Try
                 For Each SubFolder As String In IO.Directory.GetDirectories(Src_FilePath)
+                    If CancelSource.IsCancellationRequested Then Exit Sub
                     SearchForCrap(SubFolder.Substring(Context.SourcePath.Length), True, Context)
                 Next
             Catch Ex As Exception

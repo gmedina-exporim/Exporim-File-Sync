@@ -32,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Icons\program icons\create-synchronicity-icon-16x16.ico">
+      <LogicalName>CS.create-synchronicity-icon-16x16.ico</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="COPYING">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
