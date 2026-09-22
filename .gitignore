@@ -3,3 +3,5 @@ obj/
 *.user
 Exporim File-Sync/Revision.vb
 publish/
+Exporim_File-Sync_Setup.exe
+build/

@@ -7,6 +7,7 @@
 #Web site:		https://github.com/gmedina-exporim/Exporim-File-Sync.
 
 !include MUI2.nsh
+!include LogicLib.nsh
 
 ; Pass the real version at build time: makensis /DVERSION=1.2.3 setup_script.nsi
 ; (package.bat/release.bat derive this from git). Falls back to 0.0.0-dev so the
@@ -76,18 +77,35 @@ Var StartMenuFolder
 !insertmacro MUI_LANGUAGE "Spanish"
 !insertmacro MUI_LANGUAGE "Swedish"
 
+; Checks whether Exporim File-Sync.exe is currently running, without depending on the
+; third-party FindProcDLL plugin (never vendored in this repo) - uses only the
+; System plugin bundled with every NSIS install, via CreateToolhelp32Snapshot.
 !macro ExitIfRunning
 	Beginning:
-		FindProcDLL::FindProc "Exporim File-Sync.exe"
-		IntCmp $R0 0 OkCase
-			MessageBox MB_ABORTRETRYIGNORE|MB_ICONEXCLAMATION "Exporim File-Sync is running. Please close it before continuing." IDABORT AbortCase IDRETRY RetryCase
-				Goto OkCase
+		StrCpy $0 0
+		System::Call 'kernel32::CreateToolhelp32Snapshot(i 2, i 0) i .r1'
+		System::Alloc 556
+		Pop $2
+		System::Call '*$2(i 556)'
+		System::Call 'kernel32::Process32FirstW(i r1, i r2) i .r3'
+		${DoWhile} $3 <> 0
+			System::Call '*$2(i, i, i, i, i, i, i, i, i, &w260 .r4)'
+			${If} $4 == "Exporim File-Sync.exe"
+				StrCpy $0 1
+			${EndIf}
+			System::Call 'kernel32::Process32NextW(i r1, i r2) i .r3'
+		${Loop}
+		System::Free $2
+		System::Call 'kernel32::CloseHandle(i r1)'
+
+		${If} $0 == 1
+			MessageBox MB_ABORTRETRYIGNORE|MB_ICONEXCLAMATION "Exporim File-Sync is running. Please close it before continuing." IDABORT AbortCase IDRETRY Beginning
+			Goto AbortCase
+		${EndIf}
+		Goto OkCase
 
 	AbortCase:
 		Abort
-
-	RetryCase:
-		Goto Beginning
 
 	OkCase:
 !macroend
