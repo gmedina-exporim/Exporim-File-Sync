@@ -4,10 +4,16 @@
 #Exporim File-Sync is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #You should have received a copy of the GNU General Public License along with Exporim File-Sync.  If not, see <http://www.gnu.org/licenses/>.
 #Created by:	Clément Pit--Claudel.
-#Web site:		http://synchronicity.sourceforge.net.
+#Web site:		https://github.com/gmedina-exporim/Exporim-File-Sync.
 
 !include MUI2.nsh
-!define	/file	VERSION		"..\..\..\..\..\..\Sites Web\Sourceforge\Synchronicity\code\version-string.txt"
+
+; Pass the real version at build time: makensis /DVERSION=1.2.3 setup_script.nsi
+; (package.bat/release.bat derive this from git). Falls back to 0.0.0-dev so the
+; script still runs stand-alone for a quick local test build.
+!ifndef VERSION
+	!define VERSION "0.0.0-dev"
+!endif
 
 !define 		COMPANY		"Exporim Software"
 !define 		PRODUCTNAME	"Exporim File-Sync"
@@ -15,14 +21,19 @@
 !define 		REGPATH		"Software\${COMPANY}"
 !define 		SUBREGPATH	"${REGPATH}\${PRODUCTNAME}"
 
-!define 		COMPANYPATH	"$PROGRAMFILES\${COMPANY}"
+!define 		COMPANYPATH	"$PROGRAMFILES64\${COMPANY}"
 !define 		PROGRAMPATH	"${COMPANYPATH}\${PRODUCTNAME}"
 !define			PRODUCTPATH	"${COMPANY}\${PRODUCTNAME}"
+
+; Self-contained publish output (see package.bat / release.bat):
+;   dotnet build "Exporim File-Sync.sln" -c Release
+;   dotnet publish "Exporim File-Sync\Exporim File-Sync.vbproj" -c Release -r win-x64 --self-contained true -o publish
+!define			PUBLISHDIR	"..\publish"
 
 SetCompressor /SOLID lzma
 
 Name "${PRODUCTNAME} ${VERSION}"
-OutFile "..\Create_Synchronicity_Setup.exe"
+OutFile "..\Exporim_File-Sync_Setup.exe"
 InstallDir "${PROGRAMPATH}"
 InstallDirRegKey HKLM "${SUBREGPATH}" "InstallPath"
 
@@ -71,13 +82,13 @@ Var StartMenuFolder
 		IntCmp $R0 0 OkCase
 			MessageBox MB_ABORTRETRYIGNORE|MB_ICONEXCLAMATION "Exporim File-Sync is running. Please close it before continuing." IDABORT AbortCase IDRETRY RetryCase
 				Goto OkCase
-		
+
 	AbortCase:
 		Abort
-	
+
 	RetryCase:
 		Goto Beginning
-	
+
 	OkCase:
 !macroend
 
@@ -94,13 +105,11 @@ FunctionEnd
 Section "Installer Section" InstallSection
 	SetOutPath $INSTDIR
 
-	File "bin\Release\Exporim File-Sync.exe"
-	File "bin\Release\Release notes.txt"
-	File "bin\Release\COPYING"
-
-	SetOutPath "$INSTDIR\languages"
-	File "bin\Release\languages\*.lng"
-	File "bin\Release\languages\local-names.txt"
+	; Self-contained publish output: the app, the .NET 8 runtime, compress.dll +
+	; its SharpZipLib dependency, languages\*.lng, COPYING, Release notes.txt -
+	; everything dotnet publish produced, recursively, rather than an
+	; itemized list that would go stale every time the runtime's file set changes.
+	File /r "${PUBLISHDIR}\*.*"
 
 	!insertmacro MUI_STARTMENU_WRITE_BEGIN AppStartMenu
 	CreateDirectory "$SMPROGRAMS\$StartMenuFolder"
@@ -113,12 +122,6 @@ Section "Installer Section" InstallSection
 SectionEnd
 
 Section "Uninstall"
-	Delete "$INSTDIR\Exporim File-Sync.exe"
-	Delete "$INSTDIR\Release notes.txt"
-	Delete "$INSTDIR\COPYING"
-	Delete "$INSTDIR\Uninstall.exe"
-	Delete "$INSTDIR\app.log"
-
 	!insertmacro MUI_STARTMENU_GETFOLDER AppStartMenu $StartMenuFolder
 
 	Delete "$SMPROGRAMS\$StartMenuFolder\${PRODUCTNAME}.lnk"
@@ -126,10 +129,7 @@ Section "Uninstall"
 	RMDir "$SMPROGRAMS\$StartMenuFolder"
 	RMDir "$SMPROGRAMS\${COMPANY}\" #remove the "Exporim Software" folder if empty
 
-	RMDir /r "$INSTDIR\languages\"
-	RMDir /r "$INSTDIR\config\"
-	RMDir /r "$INSTDIR\log\"
-	RMDir "$INSTDIR\"
+	RMDir /r "$INSTDIR\"
 	RMDir "${COMPANYPATH}\" #remove the "Exporim Software" folder if empty
 
 	RMDir /r "$APPDATA\Exporim Software\Exporim File-Sync\"

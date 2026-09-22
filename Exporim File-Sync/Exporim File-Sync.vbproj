@@ -61,6 +61,27 @@
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />
   </ItemGroup>
 
+  <!-- compress.dll and its SharpZipLib dependency are built by the Compressor project (see its
+       CopyCompressorPluginToApp target). They aren't a compile-time reference of this project
+       (loaded dynamically at runtime via Assembly.LoadFrom), so `dotnet publish` doesn't know
+       about them on its own. Reference them directly from the Compressor project's own (RID-
+       independent) output folder rather than via $(OutDir), since publish's $(OutDir) gets a
+       runtime-identifier subfolder (e.g. win-x64) that the Compressor project itself never uses.
+       Run `dotnet build "Exporim File-Sync.sln" -c $(Configuration)` once before publishing so
+       these Exists() checks - evaluated when this project loads - find them already built. -->
+  <ItemGroup>
+    <Content Include="..\Compressor\bin\$(Configuration)\net8.0-windows\compress.dll" Condition="Exists('..\Compressor\bin\$(Configuration)\net8.0-windows\compress.dll')">
+      <Link>compress.dll</Link>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Compressor\bin\$(Configuration)\net8.0-windows\ICSharpCode.SharpZipLib.dll" Condition="Exists('..\Compressor\bin\$(Configuration)\net8.0-windows\ICSharpCode.SharpZipLib.dll')">
+      <Link>ICSharpCode.SharpZipLib.dll</Link>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
   <Target Name="StampRevision" BeforeTargets="CoreCompile">
     <Exec Command="powershell -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\StampRevision.ps1&quot; -ProjectDir &quot;$(MSBuildProjectDirectory)&quot;" />
   </Target>
