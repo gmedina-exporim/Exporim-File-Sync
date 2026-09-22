@@ -97,7 +97,7 @@ Public Class SettingsForm
         If Not TextboxField.Text = "" AndAlso IO.Directory.Exists(ProfileHandler.TranslatePath(TextboxField.Text)) Then
             FolderBrowser.SelectedPath = ProfileHandler.TranslatePath(TextboxField.Text)
         End If
-        If FolderBrowser.ShowDialog = Windows.Forms.DialogResult.OK Then
+        If FolderBrowser.ShowDialog = System.Windows.Forms.DialogResult.OK Then
             If TextboxField.Text.StartsWith("""") Then
                 TextboxField.Text = ProfileHandler.TranslatePath_Inverse(FolderBrowser.SelectedPath)
             Else
@@ -107,7 +107,7 @@ Public Class SettingsForm
     End Sub
 
     Private Sub SwapButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SwapButton.Click
-        If Interaction.ShowMsg(Translation.Translate("\WARNING_SWAP"), "\WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = Windows.Forms.DialogResult.Yes Then
+        If Interaction.ShowMsg(Translation.Translate("\WARNING_SWAP"), "\WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) = System.Windows.Forms.DialogResult.Yes Then
             Dim FromTextBox_Text As String = FromTextBox.Text 'LATER: Better swapping?
             FromTextBox.Text = ToTextBox.Text
             ToTextBox.Text = FromTextBox_Text
@@ -134,7 +134,7 @@ Public Class SettingsForm
     End Sub
 
     Private Sub View_MouseClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles RightView.MouseClick, LeftView.MouseClick
-        If e.Button = Windows.Forms.MouseButtons.Right Then
+        If e.Button = System.Windows.Forms.MouseButtons.Right Then
             ClickedRightTreeView = (CType(sender, Control).Name = "RightView")
             If ClickedRightTreeView Then
                 RightView.SelectedNode = RightView.GetNodeAt(e.Location)
