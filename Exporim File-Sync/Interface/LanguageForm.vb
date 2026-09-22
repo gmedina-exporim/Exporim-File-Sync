@@ -2,9 +2,6 @@
     Sub New()
         ' This call is required by the designer.
         InitializeComponent()
-#If CONFIG = "Linux" Then
-        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
-#End If
 
         Me.Icon = ProgramConfig.Icon
         LanguageHandler.FillLanguageListBox(LanguagesList)

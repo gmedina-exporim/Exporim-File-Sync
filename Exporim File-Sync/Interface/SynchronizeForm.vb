@@ -79,11 +79,6 @@ Public Class SynchronizeForm
         Me.Text = String.Format(Me.Text, Handler.ProfileName, Handler.GetSetting(Of String)(ProfileSetting.Source), Handler.GetSetting(Of String)(ProfileSetting.Destination)) 'Feature requests #3037548, #3055740
 
         Labels = New String() {"", Step1StatusLabel.Text, Step2StatusLabel.Text, Step3StatusLabel.Text}
-
-#If LINUX Then
-        Step1ProgressBar.MarqueeAnimationSpeed = 5000
-        SyncingTimer.Interval = 1000
-#End If
     End Sub
 
     Sub StartSynchronization(ByVal CalledShowModal As Boolean)
@@ -694,9 +689,6 @@ Public Class SynchronizeForm
         If Recursive Then
             Try
                 For Each SubFolder As String In IO.Directory.GetDirectories(Src_FilePath)
-#If LINUX Then
-                    If IsSymLink(SubFolder) Then Continue For
-#End If
                     SearchForChanges(SubFolder.Substring(Context.SourcePath.Length), True, Context)
                 Next
             Catch Ex As Exception
@@ -757,9 +749,6 @@ Public Class SynchronizeForm
         If Recursive Then
             Try
                 For Each SubFolder As String In IO.Directory.GetDirectories(Src_FilePath)
-#If LINUX Then
-                    If IsSymLink(SubFolder) Then Continue For
-#End If
                     SearchForCrap(SubFolder.Substring(Context.SourcePath.Length), True, Context)
                 Next
             Catch Ex As Exception
@@ -885,16 +874,6 @@ Public Class SynchronizeForm
 
         Return True
     End Function
-
-#If LINUX Then
-    Private Function IsSymLink(ByVal SubFolder As String) As Boolean
-        If (IO.File.GetAttributes(SubFolder) And IO.FileAttributes.ReparsePoint) <> 0 Then
-            Log.LogInfo(String.Format("Symlink detected: {0}; not following.", SubFolder))
-            Return True
-        End If
-        Return False
-    End Function
-#End If
 #End Region
 
 #Region " Shared functions "

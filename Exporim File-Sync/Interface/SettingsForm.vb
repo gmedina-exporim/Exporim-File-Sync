@@ -35,9 +35,6 @@ Public Class SettingsForm
     Public Sub New(ByVal Name As String)
         ' This call is required by the Windows Form Designer.
         InitializeComponent()
-#If CONFIG = "Linux" Then
-        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
-#End If
 
         ' Add any initialization after the InitializeComponent() call.
         Handler = New ProfileHandler(Name)
@@ -496,11 +493,7 @@ Public Class SettingsForm
     End Sub
 
     Private Shared Function Cleanup(ByVal Path As String) As String
-#If LINUX Then
-        Return If(Path.Contains("/"), "/", "") & Path.Trim(New Char() {ProgramSetting.DirSep, " "c})
-#Else
         Return Path.TrimEnd(New Char() {ProgramSetting.DirSep, " "c})
-#End If
     End Function
 
     Private Sub Cleanup_Paths()

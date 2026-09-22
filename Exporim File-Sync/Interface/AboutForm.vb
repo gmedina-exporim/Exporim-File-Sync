@@ -33,9 +33,6 @@ Public Class AboutForm
         LanguageHandler.FillLanguageListBox(LanguagesList)
         UpdatesOption.Checked = ProgramConfig.GetProgramSetting(Of Boolean)(ProgramSetting.AutoUpdates, False)
 
-#If CONFIG = "Linux" Then
-        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
-#End If
     End Sub
 
     Private Sub LinkToProductPage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkToProductPage.LinkClicked

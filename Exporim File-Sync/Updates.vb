@@ -11,13 +11,9 @@ Friend Module Updates
         Dim UpdateClient As New Net.WebClient
         Try
             UpdateClient.Headers.Add("version", Application.ProductVersion)
-#If CONFIG = "Linux" Then
-            UpdateClient.Headers.Add("os", "Linux")
-#Else
             UpdateClient.UseDefaultCredentials = True 'Needed? -- Does no harm
             UpdateClient.Proxy = System.Net.HttpWebRequest.DefaultWebProxy 'Tracker #2976549
             UpdateClient.Proxy.Credentials = Net.CredentialCache.DefaultCredentials
-#End If
             Dim LatestVersion As String
             Dim Url As String = ProgramSetting.Website & If(CommandLine.RunAs = CommandLine.RunMode.Scheduler, "code/scheduler-version.txt", "code/version.txt")
             Dim SecondaryUrl As String = ProgramSetting.UserWeb & "code/synchronicity-version.txt"

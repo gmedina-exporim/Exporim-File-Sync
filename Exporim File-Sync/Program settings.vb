@@ -30,11 +30,7 @@ Friend Module ProgramSetting
     'Public CompressionThreshold As Integer = 0 'Better not filter at all
 
     Public Const EnqueuingSeparator As Char = "|"c
-#If CONFIG = "Linux" Then
-    Public Const DirSep As Char = "/"c
-#Else
     Public Const DirSep As Char = "\"c
-#End If
 
 #If DEBUG Then
     Public Const Debug As Boolean = True

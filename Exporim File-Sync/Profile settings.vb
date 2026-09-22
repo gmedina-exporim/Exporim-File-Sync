@@ -241,7 +241,6 @@ NotInheritable Class ProfileHandler
     End Function
 
     Public Shared Function TranslatePath_Inverse(ByVal Path As String) As String
-#If CONFIG <> "Linux" Then
         If Text.RegularExpressions.Regex.IsMatch(Path, "^(?<driveletter>[A-Z]\:)(\\(?<relativepath>.*))?$") Then
             Dim Label As String = ""
             For Each Drive As IO.DriveInfo In IO.DriveInfo.GetDrives
@@ -249,7 +248,6 @@ NotInheritable Class ProfileHandler
             Next
             If Label <> "" Then Return String.Format("""{0}""\{1}", Label, Path.Substring(2).Trim(ProgramSetting.DirSep)).TrimEnd(ProgramSetting.DirSep)
         End If
-#End If
 
         Return Path
     End Function
@@ -257,11 +255,10 @@ NotInheritable Class ProfileHandler
     Private Shared Function TranslatePath_Unsafe(ByVal Path As String) As String
         Dim Translated_Path As String = Path
 
-#If CONFIG <> "Linux" Then
         Dim Label As String, RelativePath As String
         If Path.StartsWith("""") Or Path.StartsWith(":") Then
             Dim ClosingPos As Integer = Path.LastIndexOfAny(""":".ToCharArray)
-            If ClosingPos = 0 Then Return "" 'LINUX: Currently returns "" (aka linux root) if no closing op is found.
+            If ClosingPos = 0 Then Return ""
 
             Label = Path.Substring(1, ClosingPos - 1)
             RelativePath = Path.Substring(ClosingPos + 1)
@@ -277,7 +274,6 @@ NotInheritable Class ProfileHandler
                 Next
             End If
         End If
-#End If
 
         ' Use a path-friendly version of the DATE constant.
         Environment.SetEnvironmentVariable("MMMYYYY", Date.Today.ToString("MMMYYYY").ToLower(Interaction.InvariantCulture))

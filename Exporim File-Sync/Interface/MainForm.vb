@@ -14,9 +14,6 @@ Public Class MainForm
     Sub New()
         ' This call is required by the designer.
         InitializeComponent()
-#If CONFIG = "Linux" Then
-        Me.FormBorderStyle = Windows.Forms.FormBorderStyle.Sizable
-#End If
 
         ' Code (largely inspired) by U.N. Owen
         Dim WindowSettings As New List(Of String)(ProgramConfig.GetProgramSetting(Of String)(ProgramSetting.MainFormAttributes, "").Split(","c))
@@ -243,9 +240,6 @@ Public Class MainForm
 
     Sub SetView(ByVal Offset As Integer)
         CurView = (CurView + Offset) Mod Views.Length
-#If CONFIG = "Linux" Then
-        CurView = If(CurView = 0, CurView + 1, CurView) 'Exclude tile view.
-#End If
 
         Actions.View = Views(CurView)
         Actions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent)
