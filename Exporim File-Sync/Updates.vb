@@ -1,4 +1,4 @@
-﻿'This file is part of Exporim File-Sync.
+'This file is part of Exporim File-Sync.
 '
 'Exporim File-Sync is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 'Exporim File-Sync is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
@@ -7,25 +7,18 @@
 'Web site:		https://github.com/gmedina-exporim/Exporim-File-Sync.
 
 Friend Module Updates
+    Private Const GitHubRepo As String = "gmedina-exporim/Exporim-File-Sync"
+
+    Private ReadOnly HttpClient As New Net.Http.HttpClient()
+
     Public Sub CheckForUpdates(Optional ByVal RoutineCheck As Boolean = True)
-        Dim UpdateClient As New Net.WebClient
         Try
-            UpdateClient.Headers.Add("version", Application.ProductVersion)
-            UpdateClient.UseDefaultCredentials = True 'Needed? -- Does no harm
-            UpdateClient.Proxy = System.Net.HttpWebRequest.DefaultWebProxy 'Tracker #2976549
-            UpdateClient.Proxy.Credentials = Net.CredentialCache.DefaultCredentials
-            Dim LatestVersion As String
-            Dim Url As String = ProgramSetting.Website & If(CommandLine.RunAs = CommandLine.RunMode.Scheduler, "code/scheduler-version.txt", "code/version.txt")
-            Dim SecondaryUrl As String = ProgramSetting.UserWeb & "code/synchronicity-version.txt"
-            Try
-                LatestVersion = UpdateClient.DownloadString(Url)
-            Catch ex As Net.WebException
-                LatestVersion = UpdateClient.DownloadString(SecondaryUrl)
-            End Try
+            Dim LatestVersionTag As String = GetLatestReleaseTag()
+            Dim LatestVersion As String = If(LatestVersionTag.StartsWith("v"), LatestVersionTag.Substring(1), LatestVersionTag)
 
             If ((New Version(LatestVersion)) > (New Version(Application.ProductVersion))) Then
                 If Interaction.ShowMsg(String.Format(Translation.Translate("\UPDATE_MSG"), Application.ProductVersion, LatestVersion), Translation.Translate("\UPDATE_TITLE"), MessageBoxButtons.YesNo, MessageBoxIcon.Question) = DialogResult.Yes Then
-                    Interaction.StartProcess(ProgramSetting.Website & "update.html")
+                    Interaction.StartProcess(String.Format("https://github.com/{0}/releases/latest", GitHubRepo))
                     If ProgramConfig.CanGoOn Then MainFormInstance.Invoke(New Action(AddressOf Application.Exit))
                 End If
             Else
@@ -37,8 +30,21 @@ Friend Module Updates
         Catch Ex As Exception
             Interaction.ShowMsg(Translation.Translate("\UPDATE_ERROR") & Environment.NewLine & Ex.Message, Translation.Translate("\UPDATE_ERROR_TITLE"), , MessageBoxIcon.Error)
             Interaction.ShowDebug(Ex.Message & Environment.NewLine & Ex.StackTrace)
-        Finally
-            UpdateClient.Dispose()
         End Try
     End Sub
+
+    Private Function GetLatestReleaseTag() As String
+        Dim Request As New Net.Http.HttpRequestMessage(Net.Http.HttpMethod.Get, String.Format("https://api.github.com/repos/{0}/releases/latest", GitHubRepo))
+        Request.Headers.Add("User-Agent", "Exporim-File-Sync-Updater")
+        Request.Headers.Add("Accept", "application/vnd.github+json")
+
+        Dim Response As Net.Http.HttpResponseMessage = HttpClient.Send(Request)
+        Response.EnsureSuccessStatusCode()
+
+        Using ResponseStream As IO.Stream = Response.Content.ReadAsStream()
+            Using JsonDoc As Text.Json.JsonDocument = Text.Json.JsonDocument.Parse(ResponseStream)
+                Return JsonDoc.RootElement.GetProperty("tag_name").GetString()
+            End Using
+        End Using
+    End Function
 End Module

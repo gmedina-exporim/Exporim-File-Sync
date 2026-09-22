@@ -43,7 +43,7 @@ Friend Module ProgramSetting
     Public Const RegistryRootedBootKey As String = "HKEY_CURRENT_USER\" & RegistryBootKey
 
     Public Const Website As String = "https://github.com/gmedina-exporim/Exporim-File-Sync/"
-    Public Const UserWeb As String = "http://createsoftware.users.sourceforge.net/"
+    Public Const UserWeb As String = "https://github.com/gmedina-exporim/Exporim-File-Sync/"
 End Module
 
 NotInheritable Class ConfigHandler
