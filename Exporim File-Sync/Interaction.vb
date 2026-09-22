@@ -89,7 +89,12 @@ Friend Module Interaction
 
     Public Sub StartProcess(ByVal Address As String, Optional ByVal Args As String = "")
         Try
-            Diagnostics.Process.Start(Address, Args)
+            ' UseShellExecute defaults to False on .NET Core/.NET 5+ (it was True on .NET
+            ' Framework), so Process.Start(Address, Args) alone would try to *execute* Address
+            ' as a program instead of opening it with its associated app/browser - which is what
+            ' every caller here actually wants (log files, URLs, mailto: links, folders...).
+            Dim StartInfo As New Diagnostics.ProcessStartInfo(Address, Args) With {.UseShellExecute = True}
+            Diagnostics.Process.Start(StartInfo)
         Catch
         End Try
     End Sub
