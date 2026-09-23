@@ -42,6 +42,7 @@ Public Class SettingsForm
 
     Private Sub Settings_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Translation.TranslateControl(Me)
+        Interaction.ThemeLinkLabels(Me)
         Translation.TranslateControl(ExpertMenu)
         LeftView.PathSeparator = ProgramSetting.DirSep
         RightView.PathSeparator = ProgramSetting.DirSep

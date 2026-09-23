@@ -42,6 +42,8 @@ Partial Class AboutForm
         Me.UpdatesOption = New System.Windows.Forms.CheckBox()
         Me.LanguageLabel = New System.Windows.Forms.Label()
         Me.LanguagesList = New System.Windows.Forms.ComboBox()
+        Me.ThemeLabel = New System.Windows.Forms.Label()
+        Me.ThemeList = New System.Windows.Forms.ComboBox()
         CType(Me.Logo, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlowLayoutPanel.SuspendLayout()
         Me.SuspendLayout()
@@ -178,11 +180,34 @@ Partial Class AboutForm
         Me.LanguagesList.Size = New System.Drawing.Size(226, 21)
         Me.LanguagesList.TabIndex = 3
         '
+        'ThemeLabel
+        '
+        Me.ThemeLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.ThemeLabel.AutoSize = True
+        Me.ThemeLabel.Location = New System.Drawing.Point(12, 217)
+        Me.ThemeLabel.Name = "ThemeLabel"
+        Me.ThemeLabel.Size = New System.Drawing.Size(75, 13)
+        Me.ThemeLabel.TabIndex = 4
+        Me.ThemeLabel.Text = "\THEME"
+        Me.ThemeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'ThemeList
+        '
+        Me.ThemeList.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ThemeList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ThemeList.Location = New System.Drawing.Point(288, 214)
+        Me.ThemeList.Name = "ThemeList"
+        Me.ThemeList.Size = New System.Drawing.Size(226, 21)
+        Me.ThemeList.TabIndex = 5
+        '
         'AboutForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(526, 220)
+        Me.ClientSize = New System.Drawing.Size(526, 247)
+        Me.Controls.Add(Me.ThemeLabel)
+        Me.Controls.Add(Me.ThemeList)
         Me.Controls.Add(Me.LanguageLabel)
         Me.Controls.Add(Me.LanguagesList)
         Me.Controls.Add(Me.UpdatesOption)
@@ -211,4 +236,6 @@ Partial Class AboutForm
     Friend WithEvents UpdatesOption As System.Windows.Forms.CheckBox
     Friend WithEvents LanguageLabel As System.Windows.Forms.Label
     Friend WithEvents LanguagesList As System.Windows.Forms.ComboBox
+    Friend WithEvents ThemeLabel As System.Windows.Forms.Label
+    Friend WithEvents ThemeList As System.Windows.Forms.ComboBox
 End Class

@@ -76,6 +76,7 @@ Public Class SynchronizeForm
 
         Me.CreateHandle()
         Translation.TranslateControl(Me)
+        Interaction.ThemeLinkLabels(Me)
         Me.Icon = ProgramConfig.Icon
         Me.Text = String.Format(Me.Text, Handler.ProfileName, Handler.GetSetting(Of String)(ProfileSetting.Source), Handler.GetSetting(Of String)(ProfileSetting.Destination)) 'Feature requests #3037548, #3055740
 

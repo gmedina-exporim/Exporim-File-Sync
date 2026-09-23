@@ -13,6 +13,7 @@ Public Class SchedulingForm
 
     Private Sub SchedulingForm_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Translation.TranslateControl(Me)
+        Interaction.ThemeLinkLabels(Me)
         Time.CustomFormat = "HH" & Translation.Translate("\H_M_SEP") & "mm"
         WeekDay.Items.AddRange(Translation.Translate("\WEEK_DAYS").Split(";"c))
         If WeekDay.Items.Count > 0 Then WeekDay.SelectedIndex() = 0

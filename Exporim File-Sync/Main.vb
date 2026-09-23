@@ -14,7 +14,13 @@ Module Main
     Sub Main()
         ' Must come first
         Application.EnableVisualStyles()
-        Application.SetColorMode(SystemColorMode.System) ' Follow the OS light/dark theme.
+
+        ' Loaded early (InitializeSharedObjects reloads the same singleton later) because
+        ' SetColorMode must be called before any Form is created, so the saved preference has
+        ' to be read before the rest of the normal startup sequence runs.
+        ProgramConfig = ConfigHandler.GetSingleton
+        ProgramConfig.LoadProgramSettings()
+        Application.SetColorMode(GetConfiguredColorMode())
 
         Try
             MsgLoop = New MessageLoop
@@ -25,6 +31,19 @@ Module Main
             Throw
         End Try
     End Sub
+
+    ' SystemColorMode has no explicit "Light" value: Classic is WinForms' pre-dark-mode, always-
+    ' light rendering, which is exactly what a forced "Light" choice means here.
+    Private Function GetConfiguredColorMode() As SystemColorMode
+        Select Case ProgramConfig.GetProgramSetting(Of String)(ProgramSetting.ColorMode, ProgramSetting.DefaultColorMode)
+            Case "Light"
+                Return SystemColorMode.Classic
+            Case "Dark"
+                Return SystemColorMode.Dark
+            Case Else
+                Return SystemColorMode.System
+        End Select
+    End Function
 End Module
 
 Friend NotInheritable Class MessageLoop

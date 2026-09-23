@@ -20,6 +20,7 @@ Public Class AboutForm
 
     Private Sub About_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Translation.TranslateControl(Me)
+        Interaction.ThemeLinkLabels(Me)
         VersionInfo.Text = VersionInfo.Text.Replace("%version%", String.Format("{0} (r{1})", Application.ProductVersion.TrimEnd(".0".ToCharArray), Revision.Build))
 
         SetLinkArea(BugReport)
@@ -33,6 +34,10 @@ Public Class AboutForm
         LanguageHandler.FillLanguageListBox(LanguagesList)
         UpdatesOption.Checked = ProgramConfig.GetProgramSetting(Of Boolean)(ProgramSetting.AutoUpdates, False)
 
+        ThemeList.Items.Clear()
+        ThemeList.Items.AddRange({Translation.Translate("\THEME_SYSTEM"), Translation.Translate("\THEME_LIGHT"), Translation.Translate("\THEME_DARK")})
+        ThemeList.SelectedIndex = Array.IndexOf({"System", "Light", "Dark"}, ProgramConfig.GetProgramSetting(Of String)(ProgramSetting.ColorMode, ProgramSetting.DefaultColorMode))
+        If ThemeList.SelectedIndex = -1 Then ThemeList.SelectedIndex = 0
     End Sub
 
     Private Sub LinkToProductPage_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkToProductPage.LinkClicked
@@ -73,6 +78,14 @@ Public Class AboutForm
         End If
 
         ProgramConfig.SetProgramSetting(Of Boolean)(ProgramSetting.AutoUpdates, UpdatesOption.Checked)
+
+        If ThemeList.SelectedIndex <> -1 Then
+            Dim SelectedColorMode As String = {"System", "Light", "Dark"}(ThemeList.SelectedIndex)
+            Dim ColorModeChanged As Boolean = ProgramConfig.GetProgramSetting(Of String)(ProgramSetting.ColorMode, ProgramSetting.DefaultColorMode) <> SelectedColorMode
+            ProgramConfig.SetProgramSetting(Of String)(ProgramSetting.ColorMode, SelectedColorMode)
+            If ColorModeChanged Then Interaction.ShowMsg(Translation.Translate("\THEME_RESTART_NOTICE"), , , MessageBoxIcon.Information)
+        End If
+
         ProgramConfig.SaveProgramSettings()
     End Sub
 End Class

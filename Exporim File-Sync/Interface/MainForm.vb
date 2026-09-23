@@ -36,6 +36,7 @@ Public Class MainForm
         Me.ExitToolStripMenuItem.Text = Translation.Translate("\CANCEL_CLOSE", ";").Split(";"c)(1)
 
         Translation.TranslateControl(Me)
+        Interaction.ThemeLinkLabels(Me)
         Translation.TranslateControl(Me.ActionsMenu)
         Translation.TranslateControl(Me.StatusIconMenu)
 

@@ -26,6 +26,30 @@ Friend Module Interaction
         Return Msg.Replace(Environment.NewLine, " // ")
     End Function
 
+    ' LinkLabel's default link colors are a dark, low-contrast blue that's hard to read once
+    ' Application.SetColorMode switches the rest of the form to a dark background (WinForms'
+    ' built-in dark mode theming doesn't re-color LinkLabel's LinkColor/VisitedLinkColor/
+    ' ActiveLinkColor - those are explicit color properties, not SystemColors-based). Call once
+    ' per form, alongside Translation.TranslateControl(Me), to recolor every LinkLabel found.
+    Public Sub ThemeLinkLabels(ByVal Container As Control)
+        If TypeOf Container Is LinkLabel Then
+            Dim Link As LinkLabel = DirectCast(Container, LinkLabel)
+            If Application.IsDarkModeEnabled Then
+                Link.LinkColor = Drawing.Color.FromArgb(102, 178, 255)
+                Link.VisitedLinkColor = Drawing.Color.FromArgb(197, 134, 255)
+                Link.ActiveLinkColor = Drawing.Color.White
+            Else
+                Link.LinkColor = Drawing.Color.FromArgb(0, 102, 204)
+                Link.VisitedLinkColor = Drawing.Color.Purple
+                Link.ActiveLinkColor = Drawing.Color.Red
+            End If
+        End If
+
+        For Each Child As Control In Container.Controls
+            ThemeLinkLabels(Child)
+        Next
+    End Sub
+
     Public Sub ToggleStatusIcon(ByVal Status As Boolean)
         StatusIcon.Visible = Status And (Not CommandLine.Silent)
     End Sub

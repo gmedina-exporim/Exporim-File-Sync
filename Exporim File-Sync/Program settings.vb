@@ -12,6 +12,8 @@ Friend Module ProgramSetting
     Public Const DefaultLanguage As String = "english"
     'Public Const SyncsCount As String = "Syncs count" 'LATER: Problem with concurrent savings of the config file.
     Public Const AutoUpdates As String = "Auto updates"
+    Public Const ColorMode As String = "Color mode"
+    Public Const DefaultColorMode As String = "System"
     Public Const MaxLogEntries As String = "Archived log entries"
     Public Const MainView As String = "Main view"
     Public Const FontSize As String = "Font size"
