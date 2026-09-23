@@ -33,7 +33,7 @@ Partial Class MainForm
         Me.components = New System.ComponentModel.Container()
         Dim ListViewGroup1 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("\ACTIONS", System.Windows.Forms.HorizontalAlignment.Left)
         Dim ListViewGroup2 As System.Windows.Forms.ListViewGroup = New System.Windows.Forms.ListViewGroup("\PROFILES", System.Windows.Forms.HorizontalAlignment.Left)
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New System.Windows.Forms.ListViewItem.ListViewSubItem() {New System.Windows.Forms.ListViewItem.ListViewSubItem(Nothing, "\NEW_PROFILE_LABEL"), New System.Windows.Forms.ListViewItem.ListViewSubItem(Nothing, "\NEW_PROFILE", System.Drawing.Color.DarkGray, System.Drawing.SystemColors.Window, New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte)))}, 3)
+        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New System.Windows.Forms.ListViewItem.ListViewSubItem() {New System.Windows.Forms.ListViewItem.ListViewSubItem(Nothing, "\NEW_PROFILE_LABEL"), New System.Windows.Forms.ListViewItem.ListViewSubItem(Nothing, "\NEW_PROFILE", System.Drawing.Color.DarkGray, System.Drawing.SystemColors.Window, New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte)))}, 3)
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MainForm))
         Me.Actions = New System.Windows.Forms.ListView()
         Me.Actions_NameColumn = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -173,7 +173,7 @@ Partial Class MainForm
         '
         Me.TimeOffset.AutoSize = True
         Me.TimeOffset.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TimeOffset.Font = New System.Drawing.Font("Verdana", 7.0!)
+        Me.TimeOffset.Font = New System.Drawing.Font("Segoe UI", 7.0!)
         Me.TimeOffset.Location = New System.Drawing.Point(296, 57)
         Me.TimeOffset.Name = "TimeOffset"
         Me.TimeOffset.Size = New System.Drawing.Size(31, 27)
@@ -184,7 +184,7 @@ Partial Class MainForm
         '
         Me.Scheduling.AutoSize = True
         Me.Scheduling.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Scheduling.Font = New System.Drawing.Font("Verdana", 7.0!)
+        Me.Scheduling.Font = New System.Drawing.Font("Segoe UI", 7.0!)
         Me.Scheduling.Location = New System.Drawing.Point(104, 57)
         Me.Scheduling.Name = "Scheduling"
         Me.Scheduling.Size = New System.Drawing.Size(79, 27)
@@ -252,7 +252,7 @@ Partial Class MainForm
         '
         Me.FileTypes.AutoSize = True
         Me.FileTypes.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FileTypes.Font = New System.Drawing.Font("Verdana", 7.0!)
+        Me.FileTypes.Font = New System.Drawing.Font("Segoe UI", 7.0!)
         Me.FileTypes.Location = New System.Drawing.Point(296, 29)
         Me.FileTypes.Name = "FileTypes"
         Me.FileTypes.Size = New System.Drawing.Size(31, 27)
@@ -274,7 +274,7 @@ Partial Class MainForm
         '
         Me.Method.AutoSize = True
         Me.Method.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Method.Font = New System.Drawing.Font("Verdana", 7.0!)
+        Me.Method.Font = New System.Drawing.Font("Segoe UI", 7.0!)
         Me.Method.Location = New System.Drawing.Point(104, 29)
         Me.Method.Name = "Method"
         Me.Method.Size = New System.Drawing.Size(79, 27)
@@ -296,7 +296,7 @@ Partial Class MainForm
         '
         Me.LimitedCopy.AutoSize = True
         Me.LimitedCopy.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LimitedCopy.Font = New System.Drawing.Font("Verdana", 7.0!)
+        Me.LimitedCopy.Font = New System.Drawing.Font("Segoe UI", 7.0!)
         Me.LimitedCopy.Location = New System.Drawing.Point(296, 1)
         Me.LimitedCopy.Name = "LimitedCopy"
         Me.LimitedCopy.Size = New System.Drawing.Size(31, 27)
@@ -318,7 +318,7 @@ Partial Class MainForm
         '
         Me.ProfileName.AutoSize = True
         Me.ProfileName.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ProfileName.Font = New System.Drawing.Font("Verdana", 7.0!)
+        Me.ProfileName.Font = New System.Drawing.Font("Segoe UI", 7.0!)
         Me.ProfileName.Location = New System.Drawing.Point(104, 1)
         Me.ProfileName.Name = "ProfileName"
         Me.ProfileName.Size = New System.Drawing.Size(79, 27)
@@ -495,7 +495,7 @@ Partial Class MainForm
         Me.Controls.Add(Me.Donate)
         Me.Controls.Add(Me.Actions)
         Me.Controls.Add(Me.InfoPanel)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.KeyPreview = True
         Me.Name = "MainForm"

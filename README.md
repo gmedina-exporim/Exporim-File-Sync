@@ -2,7 +2,7 @@
 
 Exporim File-Sync is a fast, lightweight folder synchronization and backup tool for Windows. It mirrors or two-way syncs folders on a schedule, with optional compression, per-profile include/exclude rules, and a system tray presence for unattended background runs.
 
-This project is a modernized fork of the abandoned [Create Synchronicity](https://github.com/createsoftware/Create-Synchronicity) (last updated 2011), migrated to run on **.NET 8**.
+This project is a modernized fork of the abandoned [Create Synchronicity](https://github.com/createsoftware/Create-Synchronicity) (last updated 2011), migrated to run on **.NET 10**.
 
 ## Features
 
@@ -25,7 +25,7 @@ Download the latest installer from the [Releases](https://github.com/gmedina-exp
 
 ## Building from source
 
-Requires the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+Requires the [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0).
 
 ```
 dotnet build "Exporim File-Sync.sln" -c Release
@@ -61,4 +61,4 @@ GPLv3 or later — see [COPYING](Exporim%20File-Sync/COPYING).
 
 ## Credits
 
-Originally created by Clément Pit-Claudel as [Create Synchronicity](https://github.com/createsoftware/Create-Synchronicity). This fork continues it under a new name and a modern .NET 8 codebase.
+Originally created by Clément Pit-Claudel as [Create Synchronicity](https://github.com/createsoftware/Create-Synchronicity). This fork continues it under a new name and a modern .NET 10 codebase.

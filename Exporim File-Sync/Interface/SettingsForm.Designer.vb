@@ -90,6 +90,7 @@ Partial Class SettingsForm
         Me.BottomDescLabel = New System.Windows.Forms.Label()
         Me.ExpertMenu = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.CreateDestOption = New System.Windows.Forms.ToolStripMenuItem()
+        Me.RealTimeSyncOption = New System.Windows.Forms.ToolStripMenuItem()
         Me.CheckFileSizeOption = New System.Windows.Forms.ToolStripMenuItem()
         Me.ChecksumOption = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupOption = New System.Windows.Forms.ToolStripMenuItem()
@@ -722,12 +723,12 @@ Partial Class SettingsForm
         '
         'ExpertMenu
         '
-        Me.ExpertMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateDestOption, Me.CheckFileSizeOption, Me.ChecksumOption, Me.GroupOption})
+        Me.ExpertMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CreateDestOption, Me.RealTimeSyncOption, Me.CheckFileSizeOption, Me.ChecksumOption, Me.GroupOption})
         Me.ExpertMenu.Name = "ExpertMenu"
         Me.ExpertMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System
         Me.ExpertMenu.ShowCheckMargin = True
         Me.ExpertMenu.ShowImageMargin = False
-        Me.ExpertMenu.Size = New System.Drawing.Size(163, 92)
+        Me.ExpertMenu.Size = New System.Drawing.Size(163, 114)
         '
         'CreateDestOption
         '
@@ -735,6 +736,13 @@ Partial Class SettingsForm
         Me.CreateDestOption.Name = "CreateDestOption"
         Me.CreateDestOption.Size = New System.Drawing.Size(162, 22)
         Me.CreateDestOption.Text = "\CREATE_DEST"
+        '
+        'RealTimeSyncOption
+        '
+        Me.RealTimeSyncOption.CheckOnClick = True
+        Me.RealTimeSyncOption.Name = "RealTimeSyncOption"
+        Me.RealTimeSyncOption.Size = New System.Drawing.Size(162, 22)
+        Me.RealTimeSyncOption.Text = "\REALTIME_SYNC"
         '
         'CheckFileSizeOption
         '
@@ -776,7 +784,7 @@ Partial Class SettingsForm
         Me.Controls.Add(Me.SynchronizationMethodBox)
         Me.Controls.Add(Me.IncludeExcludeBox)
         Me.Controls.Add(Me.BottomDescLabel)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.Name = "SettingsForm"
         Me.ShowInTaskbar = False
@@ -868,4 +876,5 @@ Partial Class SettingsForm
     Friend WithEvents GroupTextBox As System.Windows.Forms.ToolStripTextBox
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents CreateDestOption As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents RealTimeSyncOption As System.Windows.Forms.ToolStripMenuItem
 End Class

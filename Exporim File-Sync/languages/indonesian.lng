@@ -160,3 +160,4 @@ CREATE_DEST=Membuat folder tujuan secara dinamis
 ->COMPARE_SIZE=
 ->MORE=
 ->NO_PROFILES=
+REALTIME_SYNC=Sync automatically when files change

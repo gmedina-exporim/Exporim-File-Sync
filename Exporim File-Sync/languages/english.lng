@@ -160,3 +160,4 @@ GROUP=Group
 COMPARE_SIZE=Compare file size
 MORE=More (experts only)
 NO_PROFILES=You have no profiles. Click "{0}" to create one.
+REALTIME_SYNC=Sync automatically when files change

@@ -160,3 +160,4 @@ GROUP=Groupe
 COMPARE_SIZE=Comparer les tailles de fichiers
 MORE=Plus (reservé aux experts)
 NO_PROFILES=Vous n'avez paramétré aucun profil. Cliquez sur "{0}" pour en créer un.
+REALTIME_SYNC=Sync automatically when files change

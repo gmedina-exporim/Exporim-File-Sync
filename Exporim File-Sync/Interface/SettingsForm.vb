@@ -442,6 +442,7 @@ Public Class SettingsForm
         Handler.CopySetting(ProfileSetting.TimeOffset, TimeOffset.Value, LoadToForm)
         Handler.CopySetting(ProfileSetting.Checksum, ChecksumOption.Checked, LoadToForm)
         Handler.CopySetting(ProfileSetting.CheckFileSize, CheckFileSizeOption.Checked, LoadToForm)
+        Handler.CopySetting(ProfileSetting.RealTimeSync, RealTimeSyncOption.Checked, LoadToForm)
         Handler.CopySetting(ProfileSetting.Group, GroupTextBox.Text, LoadToForm)
         'Hidden settings are not added here
 

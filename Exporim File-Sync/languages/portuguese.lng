@@ -160,3 +160,4 @@ GROUP=Agrupar
 COMPARE_SIZE=Comparar o tamanho de ficheiro
 MORE=Mais (Apenas utilizadores experientes)
 ->NO_PROFILES=
+REALTIME_SYNC=Sync automatically when files change

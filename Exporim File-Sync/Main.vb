@@ -14,6 +14,7 @@ Module Main
     Sub Main()
         ' Must come first
         Application.EnableVisualStyles()
+        Application.SetColorMode(SystemColorMode.System) ' Follow the OS light/dark theme.
 
         Try
             MsgLoop = New MessageLoop
@@ -96,6 +97,7 @@ Friend NotInheritable Class MessageLoop
     Private Sub MessageLoop_ThreadExit(ByVal sender As Object, ByVal e As System.EventArgs)
         ExitNeeded = True
         Interaction.ToggleStatusIcon(False)
+        RealTimeSync.StopAll()
 
         ' Save last window information. Don't overwrite config file if running in scheduler mode.
         If Not CommandLine.RunAs = CommandLine.RunMode.Scheduler Then ProgramConfig.SaveProgramSettings()
@@ -161,6 +163,8 @@ Friend NotInheritable Class MessageLoop
             Dim Name As String = IO.Path.GetFileNameWithoutExtension(ConfigFile)
             Profiles.Add(Name, New ProfileHandler(Name))
         Next
+
+        RealTimeSync.RefreshWatchers()
     End Sub
 #End Region
 

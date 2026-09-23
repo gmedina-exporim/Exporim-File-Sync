@@ -123,7 +123,7 @@ FunctionEnd
 Section "Installer Section" InstallSection
 	SetOutPath $INSTDIR
 
-	; Self-contained publish output: the app, the .NET 8 runtime, compress.dll +
+	; Self-contained publish output: the app, the .NET 10 runtime, compress.dll +
 	; its SharpZipLib dependency, languages\*.lng, COPYING, Release notes.txt -
 	; everything dotnet publish produced, recursively, rather than an
 	; itemized list that would go stale every time the runtime's file set changes.

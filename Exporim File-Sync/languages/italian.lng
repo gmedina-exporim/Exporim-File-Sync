@@ -159,3 +159,4 @@ GROUP=Gruppo
 COMPARE_SIZE=Confronta dimensioni file
 MORE=Altro (solo esperti)
 ->NO_PROFILES=
+REALTIME_SYNC=Sync automatically when files change

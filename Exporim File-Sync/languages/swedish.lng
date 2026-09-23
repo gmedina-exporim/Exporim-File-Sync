@@ -160,3 +160,4 @@ CATCHUP_MISSED_BACKUPS_TAG=Markerar vad som händer om datorn var avstängd vid 
 ->COMPARE_SIZE=
 ->MORE=
 ->NO_PROFILES=
+REALTIME_SYNC=Sync automatically when files change

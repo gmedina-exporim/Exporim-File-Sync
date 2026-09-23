@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <RootNamespace>GZipCompressor</RootNamespace>
     <AssemblyName>compress</AssemblyName>
     <OptionExplicit>On</OptionExplicit>
@@ -37,8 +37,10 @@
       <CompressorPluginFiles Include="$(TargetDir)compress.dll" />
       <CompressorPluginFiles Include="$(TargetDir)ICSharpCode.SharpZipLib.dll" />
     </ItemGroup>
-    <!-- The main app targets net8.0-windows while this project targets plain net8.0, so its own $(OutDir) can't be reused verbatim for the destination. -->
-    <Copy SourceFiles="@(CompressorPluginFiles)" DestinationFolder="..\Exporim File-Sync\bin\$(Configuration)\net8.0-windows" SkipUnchangedFiles="true" Condition="Exists('..\Exporim File-Sync\bin\$(Configuration)\net8.0-windows')" />
+    <!-- Both projects target net10.0-windows, but publish's $(OutDir) gets a runtime-identifier
+         subfolder (e.g. win-x64) this project's own build never uses, so its own $(OutDir)
+         can't be reused verbatim for the destination when the app is published. -->
+    <Copy SourceFiles="@(CompressorPluginFiles)" DestinationFolder="..\Exporim File-Sync\bin\$(Configuration)\net10.0-windows" SkipUnchangedFiles="true" Condition="Exists('..\Exporim File-Sync\bin\$(Configuration)\net10.0-windows')" />
   </Target>
 
 </Project>

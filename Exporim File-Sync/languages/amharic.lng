@@ -159,3 +159,4 @@ GROUP=መደብ
 COMPARE_SIZE=የፋይል መጠን አመዛዝን
 MORE=ተጨማሪ (ለኤክስፐርቶች ብቻ)
 NO_PROFILES=ምንም ፕሮፋይሎች የሎትም። አዲስ ለመፍጠር "{0}"ን ይጫኑ።
+REALTIME_SYNC=Sync automatically when files change

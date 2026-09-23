@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>CS</RootNamespace>
     <AssemblyName>Exporim File-Sync</AssemblyName>
@@ -16,7 +16,7 @@
     <OptionInfer>Off</OptionInfer>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <WarningsAsErrors>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</WarningsAsErrors>
-    <NoWarn>NETSDK1206</NoWarn>
+    <NoWarn>NETSDK1206;WFO5001</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -70,12 +70,12 @@
        Run `dotnet build "Exporim File-Sync.sln" -c $(Configuration)` once before publishing so
        these Exists() checks - evaluated when this project loads - find them already built. -->
   <ItemGroup>
-    <Content Include="..\Compressor\bin\$(Configuration)\net8.0-windows\compress.dll" Condition="Exists('..\Compressor\bin\$(Configuration)\net8.0-windows\compress.dll')">
+    <Content Include="..\Compressor\bin\$(Configuration)\net10.0-windows\compress.dll" Condition="Exists('..\Compressor\bin\$(Configuration)\net10.0-windows\compress.dll')">
       <Link>compress.dll</Link>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\Compressor\bin\$(Configuration)\net8.0-windows\ICSharpCode.SharpZipLib.dll" Condition="Exists('..\Compressor\bin\$(Configuration)\net8.0-windows\ICSharpCode.SharpZipLib.dll')">
+    <Content Include="..\Compressor\bin\$(Configuration)\net10.0-windows\ICSharpCode.SharpZipLib.dll" Condition="Exists('..\Compressor\bin\$(Configuration)\net10.0-windows\ICSharpCode.SharpZipLib.dll')">
       <Link>ICSharpCode.SharpZipLib.dll</Link>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

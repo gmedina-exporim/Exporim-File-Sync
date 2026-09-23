@@ -160,3 +160,4 @@ GROUP=Csoport
 COMPARE_SIZE=Fájlméret összehasonlítás
 MORE=Tovább (csak hozzáértőknek)
 ->NO_PROFILES=
+REALTIME_SYNC=Sync automatically when files change

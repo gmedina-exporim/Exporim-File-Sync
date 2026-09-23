@@ -188,7 +188,7 @@ Partial Class AboutForm
         Me.Controls.Add(Me.UpdatesOption)
         Me.Controls.Add(Me.FlowLayoutPanel)
         Me.Controls.Add(Me.Logo)
-        Me.Font = New System.Drawing.Font("Verdana", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow
         Me.Name = "AboutForm"
         Me.ShowInTaskbar = False

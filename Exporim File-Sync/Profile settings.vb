@@ -28,6 +28,7 @@ Friend Module ProfileSetting
     Public Const CheckFileSize As String = "Check file size"
     Public Const FuzzyDstCompensation As String = "Fuzzy DST compensation"
     Public Const Checksum As String = "Checksum"
+    Public Const RealTimeSync As String = "Real-time sync"
 
     'Next settings are hidden, not automatically appended to config files.
     Public Const ExcludedFolders As String = "Excluded folder patterns"

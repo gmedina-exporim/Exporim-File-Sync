@@ -160,3 +160,4 @@ UPDATE=업데이트
 ->COMPARE_SIZE=
 ->MORE=
 ->NO_PROFILES=
+REALTIME_SYNC=Sync automatically when files change
